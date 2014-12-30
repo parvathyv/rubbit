@@ -43,7 +43,7 @@ end
 
 group :test do
   gem 'coveralls', require: false
-end	
+end
 
 gem 'rspec-rails', group: [:development, :test]
 gem 'capybara', group: [:development, :test]
@@ -53,3 +53,4 @@ gem 'valid_attribute', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'devise'
 gem 'foundation-rails'
+gem 'pry-rails'

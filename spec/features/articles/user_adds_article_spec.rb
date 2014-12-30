@@ -3,13 +3,13 @@ require 'rails_helper'
 feature 'user adds an article', %Q{
   As a user
   I want to add a tech resource
-  So I can share with other users 
+  So I can share with other users
 
   [x] 1) User must be signed in
   [x] 2) User should be able to add article
   [x] 3) Article must have a name (between 5-50)
   [x] 4) Article must have a URL (is valid)
-  [x] 5) Article must have a description (maximum 500) 
+  [x] 5) Article must have a description (maximum 500)
   [ ] 6) Article URL must be unique
 } do
   scenario 'user signs in and adds an article' do
@@ -21,16 +21,16 @@ feature 'user adds an article', %Q{
     fill_in 'Password', with: user.password
 
     click_button 'Log in'
-    
+
     visit new_article_path
     fill_in 'Name', with: 'New article on Devise'
-    fill_in 'Url', with: 'http://stackoverflow.com' 
-    fill_in 'Description', with: 'This article gives you information about devise,a user management system' 
+    fill_in 'Url', with: 'http://stackoverflow.com'
+    fill_in 'Description', with: 'This article gives you information about devise,a user management system'
 
     click_button 'Submit'
 
     expect(page).to have_content('Article successfully added')
-    
+
   end
 
   scenario 'User does not fill out form at all' do
@@ -64,10 +64,10 @@ feature 'user adds an article', %Q{
 
     visit new_article_path
     fill_in 'Name', with: 'Bl'
-    fill_in 'Url', with: 'awesome article, dude' 
+    fill_in 'Url', with: 'awesome article, dude'
     fill_in 'Description', with: "
 but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'
-but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'" 
+but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'"
 
 
     click_button 'Submit'
@@ -78,7 +78,7 @@ but for now, I think that these are the most salient points from my rereading of
   end
 
 scenario "User enters title that is too long" do
-  
+
   user = FactoryGirl.create(:user)
 
     visit new_user_session_path
@@ -97,7 +97,7 @@ scenario "User enters title that is too long" do
   end
 
  scenario 'user cannot add an article that is already in the database' do
-    
+
     user = FactoryGirl.create(:user)
 
     attrs = {
