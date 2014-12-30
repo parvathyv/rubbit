@@ -12,6 +12,8 @@ FactoryGirl.define do
     url 'http://www.stackoverflow.com'
     description 'Lies and the lying liars who tell them.'
     vote_count 0
+
+    user
   end
 
 end

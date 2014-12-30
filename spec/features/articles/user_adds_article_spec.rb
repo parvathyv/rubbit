@@ -10,7 +10,7 @@ feature 'user adds an article', %Q{
   [x] 3) Article must have a name (between 5-50)
   [x] 4) Article must have a URL (is valid)
   [x] 5) Article must have a description (maximum 500)
-  [ ] 6) Article URL must be unique
+  [x] 6) Article URL must be unique
 } do
   scenario 'user signs in and adds an article' do
     user = FactoryGirl.create(:user)
@@ -28,7 +28,7 @@ feature 'user adds an article', %Q{
     fill_in 'Description', with: 'This article gives you information about devise,a user management system'
 
     click_button 'Submit'
-
+save_and_open_page
     expect(page).to have_content('Article successfully added')
 
   end
