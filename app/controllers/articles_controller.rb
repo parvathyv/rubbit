@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
 
+before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edit, :update]
+
   def new
     @article = Article.new
   end
@@ -24,7 +26,11 @@ class ArticlesController < ApplicationController
 	end
 
 	def edit
+		id = params[:id]
 		@article = Article.find(params[:id])
+		if current_user.id != @article.user_id
+			redirect_to @article, :notice => "Invalid user"
+		end
 	end
 
 	def update

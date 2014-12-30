@@ -28,7 +28,7 @@ feature 'user adds an article', %Q{
     fill_in 'Description', with: 'This article gives you information about devise,a user management system'
 
     click_button 'Submit'
-save_and_open_page
+
     expect(page).to have_content('Article successfully added')
 
   end
