@@ -4,15 +4,24 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+	def create
 
-  def index
-    @articles = Article.all
-  end
+		@article = Article.new(article_params)
 
-  def show
-    @article = Article.find(params[:id])
-  end
+		if @article.save
+			redirect_to new_article_path, :notice => "Article successfully added"
+		else
+			render :new
+		end
+	end
 
+	def index
+		@articles = Article.all
+	end
+
+	def show
+		@article = Article.find(params[:id])
+	end
 
   private
 
