@@ -100,14 +100,7 @@ scenario "User enters title that is too long" do
 
     user = FactoryGirl.create(:user)
 
-    attrs = {
-      name: 'Article on Ruby',
-      url: 'http://www.rubystuff.com',
-      description: 'Here is an article on Ruby',
-      vote_count: 0
-    }
-
-    article = Article.new(attrs)
+    article = FactoryGirl.create(:article)
 
     visit new_user_session_path
     fill_in 'Email', with: user.email
@@ -129,8 +122,10 @@ scenario "User enters title that is too long" do
     fill_in 'Url', with: article.url
     fill_in 'Description', with: article.description
 
+    click_button 'Submit'
+
     expect(page).to_not have_content 'Article was successfully created.'
-    expect(page).to have_content "has already been taken"
+    expect(page).to have_content 'Url has already been taken'
   end
 
 end
