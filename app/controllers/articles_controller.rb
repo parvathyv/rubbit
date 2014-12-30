@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
 		@article = Article.new(article_params)
 
 		if @article.save
-			redirect_to new_article_path, :notice => "Article successfully added"
+			redirect_to article_path(@article), :notice => "Article successfully added"
 		else
 			render :new
 		end
@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
 
 	def show
 		@article = Article.find(params[:id])
+    @reviews = @article.answers.order(created_at: :desc)
 	end
 
   private

@@ -41,6 +41,7 @@ Acceptance criteria
     click_on "Submit"
 
     expect(page).to have_content("This article fucking sucks.")
+  end
 
 
   scenario "a user who is not signed in can't add a review to an article" do
