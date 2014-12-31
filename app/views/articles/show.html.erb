@@ -1,3 +1,5 @@
 <%= @article.name %>
 <%= @article.description %>
 <%= @article.url %>
+
+<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>

@@ -9,7 +9,7 @@ FactoryGirl.define do
 
   factory :article do
     sequence(:name) {|n| "article#{n}" }
-    url 'http://www.stackoverflow.com'
+    sequence(:url) {|n| "http://www.stackoverflow#{n}.com"}
     description 'Lies and the lying liars who tell them.'
     vote_count 0
 

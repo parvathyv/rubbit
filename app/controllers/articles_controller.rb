@@ -7,7 +7,10 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	end
 
 	def create
-		@article = Article.new(article_params)
+		@user = User.find(current_user.id)
+
+		@article = @user.articles.build(article_params)
+	
 		if @article.save
 			redirect_to new_article_path, :notice => "Article successfully added"
 		else
@@ -16,14 +19,16 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	end
 
 	def index
-		@articles = Article.all.limit(20)
+		@articles = Article.order(created_at: :desc).page(params[:page]).per(10)
 	end
 
 	def show
+	
 		@article = Article.find(params[:id])
 	end
 
 	def edit
+			
 		@article = Article.find(params[:id])
 		if current_user.id != @article.user_id
 			redirect_to @article, :notice => "Invalid user"

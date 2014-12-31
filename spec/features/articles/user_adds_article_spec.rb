@@ -14,16 +14,12 @@ feature 'user adds an article', %Q{
 } do
 
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:article) { FactoryGirl.build(:article) }
 
   scenario 'user signs in and adds an article' do
     sign_in_as(user)
 
-    visit new_article_path
-    fill_in 'Name', with: 'New article on Devise'
-    fill_in 'Url', with: 'http://stackoverflow.com'
-    fill_in 'Description', with: 'This article gives you information about devise,a user management system'
-
-    click_button 'Submit'
+    add_new_article(article)
 
     expect(page).to have_content('Article successfully added')
 
@@ -72,32 +68,18 @@ scenario "User enters title that is too long" do
   end
 
  scenario 'user cannot add an article that is already in the database' do
-    article = FactoryGirl.create(:article)
+  
 
     sign_in_as(user)
-
-    visit new_article_path
-
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
-
-    click_button 'Submit'
-
-    visit new_article_path
-
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
-
-    click_button 'Submit'
+    add_new_article(article)
+    add_new_article(article)
 
     expect(page).to_not have_content 'Article was successfully created.'
     expect(page).to have_content 'Url has already been taken'
   end
 
    scenario 'User must be logged in' do
-    article = FactoryGirl.create(:article)
+   
     visit new_article_path
 
     expect(page).to have_content 'You need to sign in or sign up before continuing'
