@@ -1,5 +1,6 @@
 <%= @article.name %>
 <%= @article.description %>
 <%= @article.url %>
-
-<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>
+<%if current_user.id == @article.user_id%>
+	<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>
+<%end%>
