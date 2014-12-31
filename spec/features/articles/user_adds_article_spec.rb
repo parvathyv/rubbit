@@ -12,15 +12,11 @@ feature 'user adds an article', %Q{
   [x] 5) Article must have a description (maximum 500)
   [x] 6) Article URL must be unique
 } do
+
+  let!(:user) { FactoryGirl.create(:user) }
+
   scenario 'user signs in and adds an article' do
-    user = FactoryGirl.create(:user)
-
-    visit new_user_session_path
-
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_article_path
     fill_in 'Name', with: 'New article on Devise'
@@ -34,14 +30,7 @@ feature 'user adds an article', %Q{
   end
 
   scenario 'User does not fill out form at all' do
-    user = FactoryGirl.create(:user)
-
-    visit new_user_session_path
-
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_article_path
 
@@ -53,14 +42,8 @@ feature 'user adds an article', %Q{
   end
 
   scenario 'User does not fill out form correctly' do
-    user = FactoryGirl.create(:user)
 
-    visit new_user_session_path
-
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_article_path
     fill_in 'Name', with: 'Bl'
@@ -78,35 +61,20 @@ but for now, I think that these are the most salient points from my rereading of
   end
 
 scenario "User enters title that is too long" do
+  sign_in_as(user)
 
-  user = FactoryGirl.create(:user)
+  visit new_article_path
+  fill_in 'Name', with: 'Here is a title that is over 50 characters. Much too long dude! Do not be so long! You are annoying for everyone!'
 
-    visit new_user_session_path
+  click_button 'Submit'
 
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-
-    click_button 'Log in'
-
-    visit new_article_path
-    fill_in 'Name', with: 'Here is a title that is over 50 characters. Much too long dude! Do not be so long! You are annoying for everyone!'
-
-    click_button 'Submit'
-
-    expect(page).to have_content "Name is too long (maximum is 50 characters)"
+  expect(page).to have_content "Name is too long (maximum is 50 characters)"
   end
 
  scenario 'user cannot add an article that is already in the database' do
-
-    user = FactoryGirl.create(:user)
-
     article = FactoryGirl.create(:article)
 
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_article_path
 
@@ -129,9 +97,7 @@ scenario "User enters title that is too long" do
   end
 
    scenario 'User must be logged in' do
-
     article = FactoryGirl.create(:article)
-
     visit new_article_path
 
     expect(page).to have_content 'You need to sign in or sign up before continuing'
