@@ -12,6 +12,7 @@ validates :name, length: {
 
 validates :url, presence: true
 validates :url, :format => URI::regexp(%w(http https))
+validates :url, uniqueness: true
 
 validates :description, presence: true
 validates :description, length: { maximum: 500 }

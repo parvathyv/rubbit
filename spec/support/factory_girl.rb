@@ -9,9 +9,11 @@ FactoryGirl.define do
 
   factory :article do
     sequence(:name) {|n| "article#{n}" }
-    url 'www.stackoverflow.com'
+    url 'http://www.stackoverflow.com'
     description 'Lies and the lying liars who tell them.'
     vote_count 0
+
+    user
   end
 
 end
