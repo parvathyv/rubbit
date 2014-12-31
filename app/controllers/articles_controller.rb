@@ -45,7 +45,17 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 				render :edit, :notice => "Article did not update"
 			end
 		end	
+	end
 
+	def destroy
+		@article = Article.find(params[:id])
+		@article.destroy
+
+		if @article.destroy
+			redirect_to root_path, notice: "Article was successfully deleted"
+		else
+			render :edit, notice: "Article was not deleted"
+		end
 	end
 
   private

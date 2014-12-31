@@ -128,4 +128,13 @@ scenario "User enters title that is too long" do
     expect(page).to have_content 'Url has already been taken'
   end
 
+   scenario 'User must be logged in' do
+
+    article = FactoryGirl.create(:article)
+
+    visit new_article_path
+
+    expect(page).to have_content 'You need to sign in or sign up before continuing'
+  end
+
 end

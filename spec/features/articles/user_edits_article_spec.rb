@@ -9,7 +9,7 @@ feature 'User edits an article', %q(
 
 	[x] The user must be logged in
 	[x] The user can edit an article
-	[ ] Only the user who posted the article can edit it
+	[x] Only the user who posted the article can edit it
 ) do
 
 scenario 'User edits an article' do
@@ -90,5 +90,14 @@ scenario 'User edits an article' do
     visit edit_article_path(article.id)
     expect(page).to have_content('Invalid user')
 
+  end
+
+   scenario 'User must be logged in' do
+
+    article = FactoryGirl.create(:article)
+
+    visit edit_article_path(article.id)
+
+    expect(page).to have_content 'You need to sign in or sign up before continuing'
   end
 end
