@@ -2,14 +2,12 @@ class ArticlesController < ApplicationController
 
 before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edit, :update]
 
-  def new
-    @article = Article.new
-  end
+	def new
+		@article = Article.new
+	end
 
 	def create
-
 		@article = Article.new(article_params)
-
 		if @article.save
 			redirect_to new_article_path, :notice => "Article successfully added"
 		else
@@ -18,7 +16,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	end
 
 	def index
-		@articles = Article.all
+		@articles = Article.all.limit(20)
 	end
 
 	def show
@@ -26,7 +24,6 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	end
 
 	def edit
-		id = params[:id]
 		@article = Article.find(params[:id])
 		if current_user.id != @article.user_id
 			redirect_to @article, :notice => "Invalid user"
@@ -35,7 +32,6 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 
 	def update
 		@article = Article.find(params[:id])
-		#binding.pry
 		if current_user.id != @article.user_id
 			redirect_to @article, :notice => "Invalid user"
 		else
@@ -58,10 +54,9 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 		end
 	end
 
-  private
+	private
 
-  def article_params
-    params.require(:article).permit(:name, :description, :url, :vote_count)
-  end
-
+	def article_params
+		params.require(:article).permit(:name, :description, :url, :vote_count)
+	end
 end
