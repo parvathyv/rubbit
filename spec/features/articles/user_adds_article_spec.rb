@@ -78,17 +78,6 @@ scenario "User enters title that is too long" do
 
     visit new_article_path
 
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
-
-    click_button 'Submit'
-
-    visit new_article_path
-
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
 
     click_button 'Submit'
 

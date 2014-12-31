@@ -36,17 +36,43 @@ Acceptance criteria
 
     click_on article.name
 
-    click_on "Add review"
-    fill_in "Review", with: "This article fucking sucks."
-    click_on "Submit"
+    fill_in "Body", with: "This article fucking sucks."
+    click_on "Add Review"
 
     expect(page).to have_content("This article fucking sucks.")
+    expect(page).to have_content("Review successfully added")
+
   end
 
+  scenario "a user sees an error if they don't submit a full review" do
 
-  scenario "a user who is not signed in can't add a review to an article" do
+    article = FactoryGirl.create(:article)
+    visit articles_path
+
+    click_on article.name
+
+    click_on "Add Review"
+
+    expect(page).to have_content("Review did fail")
   end
 
+  scenario "a user can edit a review" do
+
+    article = FactoryGirl.create(:article)
+    visit articles_path
+
+    click_on article.name
+
+    fill_in "Body", with: "This article fucking sucks."
+    click_on "Add Review"
+
+    click_on "Edit Review"
+    fill_in "Body", with: "This article is actually awesome."
+    click_on "Submit Edits"
+
+    expect(page).to have_content("Review succesfully edited")
+    expect(page).to have_content("This article is actually awesome.")
+  end
 
 
 end

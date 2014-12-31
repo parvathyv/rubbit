@@ -22,6 +22,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	def show
 		@article = Article.find(params[:id])
     @reviews = @article.reviews.order(created_at: :desc)
+		@review = Review.new
 	end
 
 	def edit
@@ -41,7 +42,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 			else
 				render :edit, :notice => "Article did not update"
 			end
-		end	
+		end
 	end
 
 	def destroy
