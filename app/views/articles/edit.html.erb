@@ -25,11 +25,13 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
-
+    
   <div class="actions">
-  <%= f.submit "Submit" %>
+   <%= f.submit "Submit" %>
   </div>
+
+  <%end%>
+
 
   <%= button_to 'Delete article', article_path, method: 'delete', data: { confirm: 'Are you sure?' } %>
 
-  <% end %>

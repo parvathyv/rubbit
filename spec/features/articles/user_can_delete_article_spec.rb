@@ -18,20 +18,4 @@ scenario "User deletes an article" do
     click_on 'Delete article'
     expect(page).to have_content "Article was successfully deleted"
 	end
-
-scenario "Malicious user tries to delete an article that he did not post (I hate that guy)" do
-   
-    sign_in_as(user)
-
-	add_new_article(article)
-
-    click_link 'Sign Out'
-    
-    malicious_user
-   
-    visit edit_article_path(article.id)
-    expect(page).to have_content('Invalid user')
-
-  end
-
 end

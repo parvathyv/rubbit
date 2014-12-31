@@ -28,21 +28,6 @@ scenario 'User edits an article' do
 
   end
 
-scenario 'Wrong user edits an article' do
-
-  sign_in_as(user)
-
-  add_new_article(article)
-  
-  click_link 'Sign Out'
-
-  malicious_user
-
-  visit edit_article_path(article.id)
-  expect(page).to have_content('Invalid user')
-
-  end
-
    scenario 'User must be logged in' do
 
     visit edit_article_path(article.id)

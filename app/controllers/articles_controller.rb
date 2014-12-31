@@ -23,28 +23,20 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	end
 
 	def show
-	
+		
 		@article = Article.find(params[:id])
 	end
 
 	def edit
-			
 		@article = Article.find(params[:id])
-		#if current_user.id != @article.user_id
-		#	redirect_to @article, :notice => "Invalid user"
-		#end
 	end
 
 	def update
 		@article = Article.find(params[:id])
-		if current_user.id != @article.user_id
-			redirect_to @article, :notice => "Invalid user"
-		else
 			if @article.update_attributes(article_params)
 				redirect_to edit_article_path, :notice => "Article successfully edited"
 			else
 				render :edit, :notice => "Article did not update"
-			end
 		end	
 	end
 
