@@ -15,7 +15,7 @@ feature 'User edits an article', %q(
 scenario 'User edits an article' do
 
 	user = FactoryGirl.create(:user)
-	article = FactoryGirl.create(:article)
+	article = FactoryGirl.create(:article, user: user)
 
     visit new_user_session_path
 
@@ -26,7 +26,7 @@ scenario 'User edits an article' do
 
 
     visit edit_article_path(article.id)
-
+    
     fill_in 'Name', with: 'New article on Devise'
     fill_in 'Url', with: 'http://stackoverflow.com'
     fill_in 'Description', with: 'This article gives you information about devise,a user management system'
@@ -40,7 +40,7 @@ scenario 'User edits an article' do
 scenario 'User edits an article' do
 
 	user = FactoryGirl.create(:user)
-	article = FactoryGirl.create(:article)
+	article = FactoryGirl.create(:article, user: user)
 
     visit new_user_session_path
 
@@ -63,14 +63,13 @@ scenario 'User edits an article' do
   scenario 'Wrong user edits an article' do
 
 	user = FactoryGirl.create(:user)
-	article = FactoryGirl.create(:article)
-    visit new_user_registration_path
+	article = FactoryGirl.create(:article, user: user)
+    
+    visit new_user_session_path
 
-    fill_in 'Email', with: 'john@example.com'
-    fill_in 'Password', with: 'password'
-    fill_in 'Password confirmation', with: 'password'
-
-    click_button 'Sign up'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Log in' 
    
 	visit new_article_path
     fill_in 'Name', with: article.name
@@ -80,18 +79,15 @@ scenario 'User edits an article' do
     click_button 'Submit'
     click_link 'Sign Out'
     
-    click_link 'Sign In'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in' 
+    visit new_user_registration_path
+
+    fill_in 'Email', with: 'john@example.com'
+    fill_in 'Password', with: 'password'
+    fill_in 'Password confirmation', with: 'password'
+
+    click_button 'Sign up'
+   
     visit edit_article_path(article.id)
-    
-    fill_in 'Name', with: 'New article on Devise'
-    fill_in 'Url', with: 'http://stackoverflow.com'
-    fill_in 'Description', with: 'This article gives you information about devise,a user management system'
-
-    click_button 'Submit'
-
     expect(page).to have_content('Invalid user')
 
   end
