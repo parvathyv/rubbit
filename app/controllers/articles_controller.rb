@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
 
 	def show
 		@article = Article.find(params[:id])
-    @reviews = @article.answers.order(created_at: :desc)
+    @reviews = @article.reviews.order(created_at: :desc)
 	end
 
   private
