@@ -14,16 +14,12 @@ feature 'user adds an article', %Q{
 } do
 
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:article) { FactoryGirl.build(:article) }
 
   scenario 'user signs in and adds an article' do
     sign_in_as(user)
 
-    visit new_article_path
-    fill_in 'Name', with: 'New article on Devise'
-    fill_in 'Url', with: 'http://stackoverflow.com'
-    fill_in 'Description', with: 'This article gives you information about devise,a user management system'
-
-    click_button 'Submit'
+    add_new_article(article)
 
     expect(page).to have_content('Article successfully added')
 
@@ -77,11 +73,12 @@ scenario "User enters title that is too long" do
     sign_in_as(user)
 
     visit new_article_path
-
+    add_new_article(article)
+    add_new_article(article)
 
     click_button 'Submit'
-
     expect(page).to_not have_content 'Article was successfully created.'
+
     expect(page).to have_content 'Url has already been taken'
   end
 

@@ -11,12 +11,13 @@ Acceptance criteria
 
 ) do
 
-    # let(:article) { FactoryGirl.create(:article) }
-    #
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:article) { FactoryGirl.create(:article, user: user) }
+    
     scenario "a user can visit an article page and see name, description, url" do
-      article = FactoryGirl.create(:article)
+     	sign_in_as(user)
       visit articles_path
-
+     
       click_on article.name
 
       expect(page).to have_content(article.name)
