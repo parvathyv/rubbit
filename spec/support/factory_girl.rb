@@ -3,6 +3,7 @@ require 'factory_girl'
 FactoryGirl.define do
   factory :user do
     sequence(:email) {|n| "user#{n}@example.com" }
+    name 'Coolguy123'
     password 'password'
     password_confirmation 'password'
   end
@@ -15,5 +16,12 @@ FactoryGirl.define do
 
     user
   end
-
+  
+  factory :review do
+    body "This is the super body of a super review. yeahhhhhhh"
+    
+    article
+    user
+  end
+  
 end
