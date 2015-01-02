@@ -71,24 +71,13 @@ scenario "User enters title that is too long" do
   expect(page).to have_content "Name is too long (maximum is 50 characters)"
   end
 
- scenario 'user cannot add an article that is already in the database' do
+  scenario 'user cannot add an article that is already in the database' do
     article = FactoryGirl.create(:article)
 
     sign_in_as(user)
 
     visit new_article_path
 
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
-
-    click_button 'Submit'
-
-    visit new_article_path
-
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
 
     click_button 'Submit'
 
@@ -96,11 +85,10 @@ scenario "User enters title that is too long" do
     expect(page).to have_content 'Url has already been taken'
   end
 
-   scenario 'User must be logged in' do
+  scenario 'User must be logged in' do
     article = FactoryGirl.create(:article)
     visit new_article_path
 
     expect(page).to have_content 'You need to sign in or sign up before continuing'
   end
-
 end

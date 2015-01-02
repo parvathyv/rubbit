@@ -9,7 +9,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 	def create
 		@article = Article.new(article_params)
 		if @article.save
-			redirect_to new_article_path, :notice => "Article successfully added"
+			redirect_to article_path(@article), :notice => "Article successfully added"
 		else
 			render :new
 		end
@@ -21,6 +21,8 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 
 	def show
 		@article = Article.find(params[:id])
+    @reviews = @article.reviews.order(created_at: :desc)
+		@review = Review.new
 	end
 
 	def edit
@@ -40,7 +42,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 			else
 				render :edit, :notice => "Article did not update"
 			end
-		end	
+		end
 	end
 
 	def destroy
