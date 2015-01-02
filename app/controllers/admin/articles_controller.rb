@@ -1,5 +1,6 @@
 module Admin
   class ArticlesController < ApplicationController
+  	before_filter :admin_authorize!
   	def index
   		@article = Article.all
     end		
@@ -33,7 +34,7 @@ module Admin
 				redirect_to edit_article_path, :notice => "Article successfully edited"
 			else
 				render :edit, :notice => "Article did not update"
-		end	
+		  end	
 	end
 
 end  
