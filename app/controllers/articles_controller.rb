@@ -29,26 +29,37 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 
 	def edit
 		@article = Article.find(params[:id])
+
 	end
 
 	def update
 		@article = Article.find(params[:id])
+		if current_user.id != @article.user_id
+			redirect_to @article, :notice => "Invalid user"
+		else
 			if @article.update_attributes(article_params)
 				redirect_to edit_article_path, :notice => "Article successfully edited"
 			else
 				render :edit, :notice => "Article did not update"
+			end
 		end	
 	end
 
 	def destroy
-		@article = Article.find(params[:id])
-		@article.destroy
+   @article = Article.find(params[:id])
+		if current_user.id != @article.user_id
 
-		if @article.destroy
-			redirect_to root_path, notice: "Article was successfully deleted"
+			redirect_to @article, :notice => "Invalid user"
 		else
-			render :edit, notice: "Article was not deleted"
-		end
+			@article = Article.find(params[:id]).destroy
+			
+			if Article.exists?(@article) == false
+				
+				redirect_to articles_path, :notice => "Article successfully deleted"
+			else
+				render :edit, :notice => "Article did not delete"
+			end
+		end	
 	end
 
 	private

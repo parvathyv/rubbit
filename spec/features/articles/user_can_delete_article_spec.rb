@@ -14,8 +14,9 @@ scenario "User deletes an article" do
 
     sign_in_as(user)
 
-    visit edit_article_path(article.id)
+    visit edit_article_path(article)
     click_on 'Delete article'
-    expect(page).to have_content "Article was successfully deleted"
+   
+    expect(page).to have_content "Article successfully deleted"
 	end
 end

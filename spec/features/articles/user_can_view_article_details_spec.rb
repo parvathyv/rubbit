@@ -17,7 +17,7 @@ Acceptance criteria
     scenario "a user can visit an article page and see name, description, url" do
      	sign_in_as(user)
       visit articles_path
-      save_and_open_page 
+     
       click_on article.name
 
       expect(page).to have_content(article.name)
