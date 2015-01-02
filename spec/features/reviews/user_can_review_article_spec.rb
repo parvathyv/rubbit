@@ -58,19 +58,23 @@ Acceptance criteria
 
   scenario "a user can edit a review" do
 
-    article = FactoryGirl.create(:article)
-    visit articles_path
+    review = FactoryGirl.create(:review)
+    visit article_path(review.article)
 
-    click_on article.name
+    # click_on review.article.name
 
-    fill_in "Body", with: "This article fucking sucks."
-    click_on "Add Review"
-
+    # fill_in "Body", with: "This article fucking sucks."
+    # click_on "Add Review"
+    
+    # save_and_open_page
     click_on "Edit Review"
+    
     fill_in "Body", with: "This article is actually awesome."
-    click_on "Submit Edits"
+    click_on "Save"
+    
+    save_and_open_page
 
-    expect(page).to have_content("Review succesfully edited")
+    expect(page).to have_content("Review successfully edited")
     expect(page).to have_content("This article is actually awesome.")
   end
 

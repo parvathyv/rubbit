@@ -17,4 +17,11 @@ FactoryGirl.define do
     user
   end
   
+  factory :review do
+    body "This is the super body of a super review. yeahhhhhhh"
+    
+    article
+    user
+  end
+  
 end

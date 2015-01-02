@@ -8,14 +8,21 @@ class ReviewsController < ApplicationController
 
 
   def edit
-    @review = Review.find(@review.id)
-    if @review.save
-      redirect_to article_path(@article), :notice => "Review successfully added"
+    @article = Article.find(params[:article_id])
+    @review = Review.find(params[:id])
+  end
+
+
+  def update
+    @article = Article.find(params[:article_id])
+    @review = Review.find(params[:id])
+    
+    if @review.update(review_params)
+      redirect_to article_path(@article), :notice => "Review successfully edited"
     else
       redirect_to article_path(@article), :notice => "Review did fail"
     end
   end
-
 
   def create
     @user = User.find(current_user.id)
@@ -24,7 +31,7 @@ class ReviewsController < ApplicationController
     @reviews = @article.reviews
     @review.article_id = @article.id
     @review.user_id = @user.id
-
+    
   if @review.save
     redirect_to article_path(@article), :notice => "Review successfully added"
   else
