@@ -73,11 +73,12 @@ scenario "User enters title that is too long" do
     sign_in_as(user)
 
     visit new_article_path
-
+    add_new_article(article)
+    add_new_article(article)
 
     click_button 'Submit'
-
     expect(page).to_not have_content 'Article was successfully created.'
+
     expect(page).to have_content 'Url has already been taken'
   end
 
