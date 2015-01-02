@@ -72,11 +72,21 @@ Acceptance criteria
     fill_in "Body", with: "This article is actually awesome."
     click_on "Save"
     
-    save_and_open_page
+    # save_and_open_page
 
     expect(page).to have_content("Review successfully edited")
     expect(page).to have_content("This article is actually awesome.")
   end
 
+  scenario "a user can delete their review" do
+    review = FactoryGirl.create(:review)
+    visit article_path(review.article)
+    
+    click_on "Edit Review"
+    
+    click_on "Delete"
+    
+    expect(page).to have_content("Review deleted")
+  end
 
 end

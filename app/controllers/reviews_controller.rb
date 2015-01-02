@@ -32,14 +32,24 @@ class ReviewsController < ApplicationController
     @review.article_id = @article.id
     @review.user_id = @user.id
     
-  if @review.save
-    redirect_to article_path(@article), :notice => "Review successfully added"
-  else
-    redirect_to article_path(@article), :notice => "Review did fail"
-
+    if @review.save
+      redirect_to article_path(@article), :notice => "Review successfully added"
+    else
+      redirect_to article_path(@article), :notice => "Review did fail"
+    
+    end
   end
-end
 
+  def destroy
+		@review = Review.find(params[:id])
+    @article = @review.article
+
+		if @review.destroy
+			redirect_to article_path(@article), notice: "Review deleted"
+		else
+			render article_path(@article), notice: "Review was not deleted"
+		end
+  end
 
   private
   def review_params
