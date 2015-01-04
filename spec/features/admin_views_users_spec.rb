@@ -11,7 +11,7 @@ feature 'admin views users', %Q{
   let!(:user1) { FactoryGirl.create(:user) }
 
   scenario 'admin views all users' do
-      sign_in_as(admin)
+    sign_in_as(admin)
     visit admin_users_path
     expect(page).to have_content user.name
     expect(page).to have_content user1.name
