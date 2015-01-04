@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 feature 'User edits an article', %q(
-	As an authenticated user 
-	I want to update an item's information 
+	As an authenticated user
+	I want to update an item's information
 	So that I can correct errors or provide new information
 
 	Acceptance criteria:
@@ -13,11 +13,11 @@ feature 'User edits an article', %q(
 ) do
 
 let!(:user) { FactoryGirl.create(:user) }
-let!(:article) { FactoryGirl.create(:article, user: user) }    
+let!(:article) { FactoryGirl.create(:article, user: user) }
 
 scenario 'User edits an article' do
 
- 	sign_in_as(user)
+  sign_in_as(user)
   visit article_path(article.id)
 
   click_on 'Edit'

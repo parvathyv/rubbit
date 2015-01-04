@@ -8,7 +8,6 @@ module Admin
     def destroy
       @user = User.find(params[:id])
       @user = User.find(params[:id]).destroy
-
       if @user.destroy
         redirect_to admin_users_path, :notice => "User successfully deleted"
       else
