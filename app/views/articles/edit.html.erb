@@ -19,19 +19,20 @@
 <div class="field">
     <%= f.label :url %><br />
     <%= f.text_field :url %>
-  </div>  
+  </div>
 
   <div class="field">
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
-    
+<% if current_user.id == @article.user_id || current_user.role == 'admin' %>
   <div class="actions">
    <%= f.submit "Submit" %>
   </div>
-
+<%end%>
   <%end%>
 
-
+<% if current_user.id == @article.user_id || current_user.role == 'admin' %>
   <%= button_to 'Delete article', article_path(@article), method: 'delete', data: { confirm: 'Are you sure?' } %>
+<%end%>
 

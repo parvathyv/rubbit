@@ -21,7 +21,7 @@ module ArticleHelper
   end
 
   def malicious_user
-  visit new_user_registration_path
+    visit new_user_registration_path
 
     fill_in 'Email', with: 'john@example.com'
     fill_in 'Password', with: 'password'
