@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   root 'articles#index'
   devise_for :users
-  
+
   resources :articles
 
   namespace :admin do
-    resources :articles, :users
-  end 
+    resources :articles, only: [:destroy, :edit]
+    resources :users, only: [:index, :destroy, :edit]
+  end
+
   resources :reviews, only: [:destroy]
 
 

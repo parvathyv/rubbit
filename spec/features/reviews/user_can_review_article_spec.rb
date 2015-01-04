@@ -27,17 +27,12 @@ Acceptance criteria
 
 
 
-  # let(:article) { FactoryGirl.create(:article) }
+  let!(:article) { FactoryGirl.create(:article) }
   #
   scenario "a user can add a review to an article" do
 
-    article = FactoryGirl.create(:article)
-    visit articles_path
 
-    click_on article.name
-
-    fill_in "Body", with: "This article fucking sucks."
-    click_on "Add Review"
+    add_new_review(article)
 
     expect(page).to have_content("This article fucking sucks.")
     expect(page).to have_content("Review successfully added")
@@ -46,7 +41,7 @@ Acceptance criteria
 
   scenario "a user sees an error if they don't submit a full review" do
 
-    article = FactoryGirl.create(:article)
+
     visit articles_path
 
     click_on article.name
@@ -65,13 +60,13 @@ Acceptance criteria
 
     # fill_in "Body", with: "This article fucking sucks."
     # click_on "Add Review"
-    
+
     # save_and_open_page
     click_on "Edit Review"
-    
+
     fill_in "Body", with: "This article is actually awesome."
     click_on "Save"
-    
+
     # save_and_open_page
 
     expect(page).to have_content("Review successfully edited")
@@ -81,11 +76,11 @@ Acceptance criteria
   scenario "a user can delete their review" do
     review = FactoryGirl.create(:review)
     visit article_path(review.article)
-    
+
     click_on "Edit Review"
-    
+
     click_on "Delete"
-    
+
     expect(page).to have_content("Review deleted")
   end
 
