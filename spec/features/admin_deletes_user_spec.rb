@@ -23,5 +23,4 @@ feature 'admin deletes article', %Q{
     expect(page).to have_content "Invalid user"
   end
 
-
 end
