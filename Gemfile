@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'kaminari'
 gem 'devise'
 gem 'foundation-rails'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'rspec-rails'

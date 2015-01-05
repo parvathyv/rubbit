@@ -5,6 +5,8 @@
 	<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>
 <%end%>
 
+<%= image_tag(current_user.profile_photo) %>
+
 
 <%= form_for [@article, @review] do |f| %>
 
