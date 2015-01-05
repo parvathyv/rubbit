@@ -38,16 +38,17 @@ feature 'user adds an article', %Q{
   end
 
   scenario 'User does not fill out form correctly' do
+    text = ""
+    501.times do
+      text << "a"
+    end
 
     sign_in_as(user)
 
     visit new_article_path
     fill_in 'Name', with: 'Bl'
     fill_in 'Url', with: 'awesome article, dude'
-    fill_in 'Description', with: "
-but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'
-but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'"
-
+    fill_in 'Description', with: text
 
     click_button 'Submit'
 
@@ -56,15 +57,15 @@ but for now, I think that these are the most salient points from my rereading of
     expect(page).to have_content "Description is too long (maximum is 500 characters)"
   end
 
-scenario "User enters title that is too long" do
-  sign_in_as(user)
+  scenario "User enters title that is too long" do
+    sign_in_as(user)
 
-  visit new_article_path
-  fill_in 'Name', with: 'Here is a title that is over 50 characters. Much too long dude! Do not be so long! You are annoying for everyone!'
+    visit new_article_path
+    fill_in 'Name', with: 'Here is a title that is over 50 characters. Much too long dude! Do not be so long! You are annoying for everyone!'
 
-  click_button 'Submit'
+    click_button 'Submit'
 
-  expect(page).to have_content "Name is too long (maximum is 50 characters)"
+    expect(page).to have_content "Name is too long (maximum is 50 characters)"
   end
 
   scenario 'user cannot add an article that is already in the database' do
@@ -83,9 +84,7 @@ scenario "User enters title that is too long" do
   end
 
   scenario 'User must be logged in' do
-    article = FactoryGirl.create(:article)
     visit new_article_path
-
     expect(page).to have_content 'You need to sign in or sign up before continuing'
   end
 end

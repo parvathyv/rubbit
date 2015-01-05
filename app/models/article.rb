@@ -6,8 +6,8 @@ belongs_to :category
 
 validates :name, presence: true
 validates :name, length: {
-	minimum: 5,
-	maximum: 50
+  minimum: 5,
+  maximum: 50
 }
 
 validates :url, presence: true
