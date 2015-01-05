@@ -38,16 +38,17 @@ feature 'user adds an article', %Q{
   end
 
   scenario 'User does not fill out form correctly' do
+    text = ""
+    501.times do
+      text << "a"
+    end
 
     sign_in_as(user)
 
     visit new_article_path
     fill_in 'Name', with: 'Bl'
     fill_in 'Url', with: 'awesome article, dude'
-    fill_in 'Description', with: "
-    but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'
-    but for now, I think that these are the most salient points from my rereading of IT.  I am super glad that it wasn't nearly as scary as the first time around, although I am still not quite ready to tackle the mini-series.  I did really enjoy this commentary on the book and recommend for more consideration of it: http://www.tor.com/blogs/2013/09/the-great-stephen-king-reread-it'"
-
+    fill_in 'Description', with: text
 
     click_button 'Submit'
 
