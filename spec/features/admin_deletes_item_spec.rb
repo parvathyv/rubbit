@@ -12,10 +12,6 @@ feature 'admin deletes article', %Q{
 
   scenario 'admin deletes an article' do
     article = FactoryGirl.create(:article)
-    # sign_in_as(user)
-    # add_new_article(article)
-    # click_link 'Sign Out'
-    # expect(page).to have_content('Signed out successfully')
 
     sign_in_as(admin)
     visit edit_admin_article_path(article)

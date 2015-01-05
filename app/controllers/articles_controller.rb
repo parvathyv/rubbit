@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
       if @article.update_attributes(article_params)
         redirect_to edit_article_path, :notice => "Article successfully edited"
       else
-        render :edit, :notice => "Article did not update"
+        render :edit
       end
     end
   end
@@ -51,7 +51,7 @@ class ArticlesController < ApplicationController
       if @article.destroy
         redirect_to articles_path, :notice => "Article successfully deleted"
       else
-        render :edit, :notice => "Article did not delete"
+        render :edit
       end
     end
   end
