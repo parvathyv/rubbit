@@ -10,7 +10,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 		@user = User.find(current_user.id)
 
 		@article = @user.articles.build(article_params)
-	
+
 		if @article.save
 			redirect_to article_path(@article), :notice => "Article successfully added"
 		else
@@ -20,13 +20,16 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 
 	def index
 		@articles = Article.order(created_at: :desc).page(params[:page]).per(10)
+		@allvotes_count = Vote.count(params[:id])
 	end
 
 	def show
-		
+
 		@article = Article.find(params[:id])
     @reviews = @article.reviews.order(created_at: :desc)
 		@review = Review.new
+		@vote = Vote.new
+
 	end
 
 	def edit
@@ -54,14 +57,14 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 			redirect_to @article, :notice => "Invalid user"
 		else
 			@article = Article.find(params[:id]).destroy
-			
+
 			if Article.exists?(@article) == false
-				
+
 				redirect_to articles_path, :notice => "Article successfully deleted"
 			else
 				render :edit, :notice => "Article did not delete"
 			end
-		end	
+		end
 	end
 
 	private

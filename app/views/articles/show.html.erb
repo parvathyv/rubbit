@@ -19,6 +19,23 @@
 
 <% end %>
 
+<%= form_for [@article, @vote] do |f| %>
+<%= f.hidden_field "article_id", :value => @article.id %>
+<%= f.hidden_field "user_id", :value => current_user.id %>
+<%= f.hidden_field "vote_tally", :value => 1 %>
+<%= submit_tag "Up", :class => 'up-vote' %>
+<% binding.pry %>
+<% end %>
+
+
+<%= form_for [@article, @vote] do |f| %>
+<%= f.hidden_field "article_id", :value => @article.id %>
+<%= f.hidden_field "user_id", :value => current_user.id %>
+<%= f.hidden_field "vote_tally", :value => -1 %>
+<%= submit_tag "Down", :class => 'down-vote' %>
+<% end %>
+
+
 <% @reviews.each do |review| %>
 
   <h4><%= review.body %></h4>

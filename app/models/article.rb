@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
 
 has_many :reviews
+has_many :votes
 belongs_to :user
 belongs_to :category
 
