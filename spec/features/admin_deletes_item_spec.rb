@@ -9,13 +9,13 @@ feature 'admin deletes article', %Q{
   let!(:admin) { FactoryGirl.create(:admin_user) }
   let!(:user) { FactoryGirl.create(:user) }
   let!(:user1) { FactoryGirl.create(:user) }
-  let!(:article) { FactoryGirl.create(:article) }
 
   scenario 'admin deletes an article' do
-    sign_in_as(user)
-    add_new_article(article)
-    click_link 'Sign Out'
-    expect(page).to have_content('Signed out successfully')
+    article = FactoryGirl.create(:article)
+    # sign_in_as(user)
+    # add_new_article(article)
+    # click_link 'Sign Out'
+    # expect(page).to have_content('Signed out successfully')
 
     sign_in_as(admin)
     visit edit_admin_article_path(article)
