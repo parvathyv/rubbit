@@ -47,7 +47,8 @@ class ReviewsController < ApplicationController
     if @review.destroy
       redirect_to article_path(@article), notice: "Review deleted"
     else
-      render article_path(@article), notice: "Review was not deleted"
+      flash[:notice] = "Review was not deleted"
+      render 'show'
     end
   end
 
