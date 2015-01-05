@@ -9,7 +9,7 @@ module Admin
       if @article.destroy
         redirect_to articles_path, :notice => "Article successfully deleted"
       else
-        render :edit, :notice => "Article did not delete"
+        render :edit
       end
     end
 

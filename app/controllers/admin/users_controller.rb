@@ -11,7 +11,7 @@ module Admin
       if @user.destroy
         redirect_to admin_users_path, :notice => "User successfully deleted"
       else
-        render :edit, :notice => "User did not delete"
+        render :edit
       end
     end
 
