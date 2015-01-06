@@ -1,9 +1,10 @@
 class ReviewsController < ApplicationController
 
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:new, :create]
 
   def new
     @review = Review.new
+    @article = Article.find(params[:article_id])
   end
 
 
@@ -16,7 +17,7 @@ class ReviewsController < ApplicationController
   def update
     @article = Article.find(params[:article_id])
     @review = Review.find(params[:id])
-    
+
     if @review.update(review_params)
       redirect_to article_path(@article), :notice => "Review successfully edited"
     else
@@ -31,12 +32,12 @@ class ReviewsController < ApplicationController
     @reviews = @article.reviews
     @review.article_id = @article.id
     @review.user_id = @user.id
-    
+
     if @review.save
       redirect_to article_path(@article), :notice => "Review successfully added"
     else
       redirect_to article_path(@article), :notice => "Review did fail"
-    
+
     end
   end
 
