@@ -1,0 +1,14 @@
+<h1>Add a Review</h1>
+
+<%= form_for ([@article, @review]) do |f| %>
+
+<div class="field">
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+</div>
+
+<div class="actions">
+  <%= f.submit "Add Review" %>
+</div>
+
+<% end %>

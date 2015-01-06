@@ -6,5 +6,8 @@ class User < ActiveRecord::Base
   has_many :articles
   has_many :reviews
 
-  mount_uploader :profile_photo, ProfilePhotoUploader       
+  has_many :votes
+
+  mount_uploader :profile_photo, ProfilePhotoUploader
+
 end

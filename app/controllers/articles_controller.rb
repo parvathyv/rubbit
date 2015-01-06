@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edit, :update]
+	before_action :authenticate_user!, only: [:destroy, :new, :create, :edit, :update]
+
   def new
     @article = Article.new
   end
@@ -19,11 +20,13 @@ class ArticlesController < ApplicationController
     @articles = Article.order(created_at: :desc).page(params[:page]).per(10)
   end
 
-  def show
-    @article = Article.find(params[:id])
+	def show
+		@article = Article.find(params[:id])
     @reviews = @article.reviews.order(created_at: :desc)
-    @review = Review.new
-  end
+		@review = Review.new
+		@vote = Vote.new
+		@votes = @article.votes
+	end
 
   def edit
     @article = Article.find(params[:id])

@@ -1,28 +1,50 @@
-<%= @article.name %>
-<%= @article.description %>
-<%= @article.url %>
-<%if current_user.id == @article.user_id%>
-	<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>
-<%end%>
+<ul>
+<li>Name: <%= @article.name %></li>
+<li>Description: <%= @article.description %></li>
+<li>Link: <%= @article.url %></li>
+</ul>
+
+	<% unless current_user.blank? %>
+		<% if current_user.id == @article.user_id%>
+			<%= button_to "Edit Article", edit_article_path(@article.id), :class => "button", :method => "get" %>
+		<%end%>
+	<%end%>
 
 <%= image_tag(current_user.profile_photo) %>
 
+<% unless current_user.blank? %>
+	<%= form_for [@article, @vote] do |f| %>
+		<%= f.hidden_field "article_id", :value => @article.id %>
+		<%= f.hidden_field "user_id", :value => current_user.id %>
+		<%= f.hidden_field "vote_tally", :value => 1 %>
+		<%= submit_tag "Up", :class => 'up-vote' %>
+	<% end %>
 
-<%= form_for [@article, @review] do |f| %>
-
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_field :body %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Add Review" %>
-  </div>
-
+	<%= form_for [@article, @vote] do |f| %>
+		<%= f.hidden_field "article_id", :value => @article.id %>
+		<%= f.hidden_field "user_id", :value => current_user.id %>
+		<%= f.hidden_field "vote_tally", :value => -1 %>
+		<%= submit_tag "Down", :class => 'down-vote' %>
+	<% end %>
 <% end %>
 
-<% @reviews.each do |review| %>
+<div class="votes">
+	<% total_votes = @article.votes.sum(:vote_tally) %>
+	<h5>Total votes: <%= total_votes %></h5>
+</div>
 
-  <h4><%= review.body %></h4>
-  <%= link_to "Edit Review", edit_article_review_path(@article, review) %>
+<%= link_to "Add a Review", new_article_review_path(@article) %>
+
+<div class="reviews">
+	<% @reviews.each do |review| %>
+		<h3><%= review.body %></h3>
+		<h5><%= review.user.name %></h5>
+</div>
+
+<% unless current_user.blank? %>
+	<% if current_user.id == review.user_id || current_user.role == 'admin' %>
+		<%= button_to "Edit Review", edit_article_review_path(review.article_id, review.id), :class => "button", :method => "get" %>
+		<%end%>
+	<%end%>
+
 <% end %>

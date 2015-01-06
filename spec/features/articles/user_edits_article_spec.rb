@@ -18,7 +18,7 @@ feature 'User edits an article', %q(
     sign_in_as(user)
     visit article_path(article.id)
 
-    click_on 'Edit'
+    click_on 'Edit Article'
 
     edit_article(article.id)
 

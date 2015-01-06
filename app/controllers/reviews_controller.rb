@@ -1,9 +1,10 @@
 class ReviewsController < ApplicationController
 
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:new, :create]
 
   def new
     @review = Review.new
+    @article = Article.find(params[:article_id])
   end
 
 

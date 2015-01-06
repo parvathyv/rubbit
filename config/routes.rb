@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :articles
 
   namespace :admin do
+
     resources :articles, only: [:destroy, :edit]
     resources :users, only: [:index, :destroy, :edit]
   end
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :reviews, only: [:create, :new, :edit, :update]
+    resources :votes, only: [:create]
   end
 
 end

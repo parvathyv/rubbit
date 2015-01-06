@@ -12,6 +12,7 @@ feature 'admin deletes article', %Q{
   scenario 'admin deletes a review' do
     sign_in_as(admin)
     visit article_path(review.article)
+    
     click_on "Edit Review"
     click_on "Delete"
     expect(page).to have_content("Review deleted")
