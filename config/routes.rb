@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   resources :articles
 
   namespace :admin do
-    resources :articles, :users
+
+    resources :articles, only: [:destroy, :edit]
+    resources :users, only: [:index, :destroy, :edit]
   end
+
   resources :reviews, only: [:destroy]
 
 

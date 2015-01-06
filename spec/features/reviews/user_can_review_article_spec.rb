@@ -12,32 +12,30 @@ Acceptance criteria
 [x] User reviews should be posted with most recent first
 ) do
 
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:article) { FactoryGirl.create(:article, user: user) }
-  let!(:review) { FactoryGirl.create(:review, user: user, article: article)}
+  let!(:review) { FactoryGirl.create(:review)}
 
   scenario "a user can add a review to an article" do
 
-    sign_in_as(user)
+    sign_in_as(review.user)
     visit articles_path
 
-    click_on article.name
+    click_on review.article.name
     click_on "Add a Review"
 
-    fill_in "Body", with: review.body
+    fill_in "Body", with: "Some other piece of writing here"
     click_on "Add Review"
 
-    expect(page).to have_content(review.body)
+    expect(page).to have_content("Some other piece of writing here")
     expect(page).to have_content("Review successfully added")
 
   end
 
   scenario "a user sees an error if they don't submit a full review" do
+    sign_in_as(review.user)
 
-    sign_in_as(user)
     visit articles_path
 
-    click_on article.name
+    click_on review.article.name
     click_on "Add a Review"
 
     click_on "Add Review"
@@ -47,10 +45,11 @@ Acceptance criteria
 
   scenario "a user can edit a review" do
 
-    sign_in_as(user)
+    sign_in_as(review.user)
     visit articles_path
 
-    click_on article.name
+    click_on review.article.name
+
     click_on "Edit Review"
 
     fill_in "Body", with: "This article is actually awesome."
@@ -61,11 +60,13 @@ Acceptance criteria
   end
 
   scenario "a user can delete their review" do
-    sign_in_as(user)
+
+    sign_in_as(review.user)
     visit articles_path
 
-    click_on article.name
+    click_on review.article.name
     click_on "Edit Review"
+
     click_on "Delete"
 
     expect(page).to have_content("Review deleted")

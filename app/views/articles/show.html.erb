@@ -10,20 +10,21 @@
 		<%end%>
 	<%end%>
 
+<%= image_tag(current_user.profile_photo) %>
+
 <% unless current_user.blank? %>
 	<%= form_for [@article, @vote] do |f| %>
-	<%= f.hidden_field "article_id", :value => @article.id %>
-	<%= f.hidden_field "user_id", :value => current_user.id %>
-	<%= f.hidden_field "vote_tally", :value => 1 %>
-	<%= submit_tag "Up", :class => 'up-vote' %>
-
+		<%= f.hidden_field "article_id", :value => @article.id %>
+		<%= f.hidden_field "user_id", :value => current_user.id %>
+		<%= f.hidden_field "vote_tally", :value => 1 %>
+		<%= submit_tag "Up", :class => 'up-vote' %>
 	<% end %>
 
 	<%= form_for [@article, @vote] do |f| %>
-	<%= f.hidden_field "article_id", :value => @article.id %>
-	<%= f.hidden_field "user_id", :value => current_user.id %>
-	<%= f.hidden_field "vote_tally", :value => -1 %>
-	<%= submit_tag "Down", :class => 'down-vote' %>
+		<%= f.hidden_field "article_id", :value => @article.id %>
+		<%= f.hidden_field "user_id", :value => current_user.id %>
+		<%= f.hidden_field "vote_tally", :value => -1 %>
+		<%= submit_tag "Down", :class => 'down-vote' %>
 	<% end %>
 <% end %>
 
@@ -41,9 +42,9 @@
 </div>
 
 <% unless current_user.blank? %>
-	<% if current_user.id == review.user_id%>
+	<% if current_user.id == review.user_id || current_user.role == 'admin' %>
 		<%= button_to "Edit Review", edit_article_review_path(review.article_id, review.id), :class => "button", :method => "get" %>
 		<%end%>
 	<%end%>
-	
+
 <% end %>

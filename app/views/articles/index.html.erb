@@ -1,4 +1,11 @@
 <h1>Articles</h1>
+
+<% unless current_user.blank? %>
+  <% if current_user %>
+    <%= image_tag(current_user.profile_photo) %>
+    <% end %>
+<% end %>
+
 <%= paginate @articles %>
 
   <ul>

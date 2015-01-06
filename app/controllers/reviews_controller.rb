@@ -42,14 +42,15 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-		@review = Review.find(params[:id])
+    @review = Review.find(params[:id])
     @article = @review.article
 
-		if @review.destroy
-			redirect_to article_path(@article), notice: "Review deleted"
-		else
-			render article_path(@article), notice: "Review was not deleted"
-		end
+    if @review.destroy
+      redirect_to article_path(@article), notice: "Review deleted"
+    else
+      flash[:notice] = "Review was not deleted"
+      render 'show'
+    end
   end
 
   private
