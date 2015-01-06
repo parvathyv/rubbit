@@ -1,45 +1,47 @@
 <%= @article.name %>
 <%= @article.description %>
 <%= @article.url %>
-<%= @votes %>
 
-<%if current_user.id == @article.user_id%>
-	<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>
+<% unless current_user.blank? %>
+<% if current_user.id == @article.user_id%>
+<%= button_to "Edit", edit_article_path(@article.id), :class => "button", :method => "get" %>
+<%end%>
 <%end%>
 
+<% unless current_user.blank? %>
+	<%= form_for [@article, @vote] do |f| %>
+	<%= f.hidden_field "article_id", :value => @article.id %>
+	<%= f.hidden_field "user_id", :value => current_user.id %>
+	<%= f.hidden_field "vote_tally", :value => 1 %>
+	<%= submit_tag "Up", :class => 'up-vote' %>
+
+	<% end %>
+
+	<%= form_for [@article, @vote] do |f| %>
+	<%= f.hidden_field "article_id", :value => @article.id %>
+	<%= f.hidden_field "user_id", :value => current_user.id %>
+	<%= f.hidden_field "vote_tally", :value => -1 %>
+	<%= submit_tag "Down", :class => 'down-vote' %>
+	<% end %>
+<% end %>
+
+<%=@article.votes.sum(:vote_tally)%>
 
 <%= form_for [@article, @review] do |f| %>
 
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_field :body %>
-  </div>
+<div class="field">
+	<%= f.label :body %>
+	<%= f.text_field :body %>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Add Review" %>
-  </div>
-
-<% end %>
-
-<%= form_for [@article, @vote] do |f| %>
-<%= f.hidden_field "article_id", :value => @article.id %>
-<%= f.hidden_field "user_id", :value => current_user.id %>
-<%= f.hidden_field "vote_tally", :value => 1 %>
-<%= submit_tag "Up", :class => 'up-vote' %>
+<div class="actions">
+	<%= f.submit "Add Review" %>
+</div>
 
 <% end %>
-
-
-<%= form_for [@article, @vote] do |f| %>
-<%= f.hidden_field "article_id", :value => @article.id %>
-<%= f.hidden_field "user_id", :value => current_user.id %>
-<%= f.hidden_field "vote_tally", :value => -1 %>
-<%= submit_tag "Down", :class => 'down-vote' %>
-<% end %>
-
 
 <% @reviews.each do |review| %>
 
-  <h4><%= review.body %></h4>
-  <%= link_to "Edit Review", edit_article_review_path(@article, review) %>
+<h4><%= review.body %></h4>
+<%= link_to "Edit Review", edit_article_review_path(@article, review) %>
 <% end %>
