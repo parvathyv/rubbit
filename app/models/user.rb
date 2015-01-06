@@ -5,5 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :articles
   has_many :reviews
-  has_many :votes      
+  has_many :votes
+  
 end

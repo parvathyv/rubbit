@@ -3,11 +3,5 @@ class Vote < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
 
-  def upvote_count
-    votes.count(:vote_tally => "value = 1")
-  end
-
-  def downvote_count
-    votes.count(:vote_tally => "value = -1")
-  end
+#validates_uniqueness_of :article_id, scope: :user_id
 end

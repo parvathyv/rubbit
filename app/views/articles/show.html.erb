@@ -1,6 +1,8 @@
 <%= @article.name %>
 <%= @article.description %>
 <%= @article.url %>
+<%= @votes %>
+
 <%if current_user.id == @article.user_id%>
 	<%= button_to "Edit", edit_article_path, :class => "button", :method => "get" %>
 <%end%>
@@ -24,7 +26,7 @@
 <%= f.hidden_field "user_id", :value => current_user.id %>
 <%= f.hidden_field "vote_tally", :value => 1 %>
 <%= submit_tag "Up", :class => 'up-vote' %>
-<% binding.pry %>
+
 <% end %>
 
 

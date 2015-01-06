@@ -3,18 +3,16 @@ class VotesController < ApplicationController
 
   def create
     @article = Article.find(params[:article_id])
-    @user = params[:format]
-    @vote = Vote.new
+    @user = current_user.id
+    @vote = Vote.new(vote_params)
 
-    @upvotes_count = Vote.count(:conditions => "article_id = #{@article.id} AND value = 1")
-    @downvotes_count = Vote.count(:conditions => "article_id = #{@article.id} AND value = -1")
-    @allvotes_count = Vote.count(:conditions => "article_id = #{@article.id}")
-
-    redirect_to articles_path
+    if @vote.save
+      redirect_to articles_path, :notice => "HUZZAH!!!!!!!!!!"
+    end
   end
 
   private
-  def review_params
+  def vote_params
     params.require(:vote).permit(:vote_tally, :user_id, :article_id)
   end
 

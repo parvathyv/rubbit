@@ -20,7 +20,6 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
 
 	def index
 		@articles = Article.order(created_at: :desc).page(params[:page]).per(10)
-		@allvotes_count = Vote.count(params[:id])
 	end
 
 	def show
@@ -29,6 +28,7 @@ before_action :authenticate_user!, only: [:destroy, :delete, :new, :create, :edi
     @reviews = @article.reviews.order(created_at: :desc)
 		@review = Review.new
 		@vote = Vote.new
+		@votes = @article.votes
 
 	end
 
