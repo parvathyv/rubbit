@@ -6,7 +6,7 @@
 
 <% unless current_user.blank? %>
 <% if current_user.id == @article.user_id%>
-<%= button_to "Edit", edit_article_path(@article.id), :class => "button", :method => "get" %>
+<%= button_to "Edit Article", edit_article_path(@article.id), :class => "button", :method => "get" %>
 <%end%>
 <%end%>
 
@@ -35,8 +35,14 @@
 <%= link_to "Add a Review", new_article_review_path(@article) %>
 
 <div class="reviews">
-<% @reviews.each do |review| %>
-<h3><%= review.body %></h3>
-<h5><%= review.user.name %></h5>
-<% end %>
+	<% @reviews.each do |review| %>
+		<h3><%= review.body %></h3>
+		<h5><%= review.user.name %></h5>
 </div>
+
+	<% unless current_user.blank? %>
+		<% if current_user.id == review.user_id%>
+			<%= button_to "Edit Review", edit_article_review_path(review.article_id, review.id), :class => "button", :method => "get" %>
+			<%end%>
+		<%end%>
+<% end %>

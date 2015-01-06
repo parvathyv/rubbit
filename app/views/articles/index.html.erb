@@ -4,7 +4,7 @@
   <ul>
     <% @articles.each do |article| %>
       <li><%= link_to article.name, article_path(article) %></li>
-
+      <li>Article votes: <%= article.votes.sum(:vote_tally) %></li>
    <% end %>
  </ul>
       <h4><%= link_to "Add new article", new_article_path %></h4>
