@@ -4,11 +4,11 @@
 <li>Link: <%= @article.url %></li>
 </ul>
 
-<% unless current_user.blank? %>
-<% if current_user.id == @article.user_id%>
-<%= button_to "Edit Article", edit_article_path(@article.id), :class => "button", :method => "get" %>
-<%end%>
-<%end%>
+	<% unless current_user.blank? %>
+		<% if current_user.id == @article.user_id%>
+			<%= button_to "Edit Article", edit_article_path(@article.id), :class => "button", :method => "get" %>
+		<%end%>
+	<%end%>
 
 <% unless current_user.blank? %>
 	<%= form_for [@article, @vote] do |f| %>
@@ -28,7 +28,7 @@
 <% end %>
 
 <div class="votes">
-<% total_votes = @article.votes.sum(:vote_tally) %>
+	<% total_votes = @article.votes.sum(:vote_tally) %>
 	<h5>Total votes: <%= total_votes %></h5>
 </div>
 
@@ -40,9 +40,10 @@
 		<h5><%= review.user.name %></h5>
 </div>
 
-	<% unless current_user.blank? %>
-		<% if current_user.id == review.user_id%>
-			<%= button_to "Edit Review", edit_article_review_path(review.article_id, review.id), :class => "button", :method => "get" %>
-			<%end%>
+<% unless current_user.blank? %>
+	<% if current_user.id == review.user_id%>
+		<%= button_to "Edit Review", edit_article_review_path(review.article_id, review.id), :class => "button", :method => "get" %>
 		<%end%>
+	<%end%>
+	
 <% end %>
