@@ -2,6 +2,7 @@ class UserMailer < ApplicationMailer
   default from: "from@example.com"
 
   def review_notice(article)
+    @user = article.user
     @email = article.user.email
     @url = "http://rubbit.#{article}"
 
@@ -11,6 +12,7 @@ class UserMailer < ApplicationMailer
   end
 
   def vote_notice(article)
+    @user = article.user
     @email = article.user.email
     @url = "http://rubbit.#{article}"
 

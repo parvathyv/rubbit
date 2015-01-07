@@ -1,4 +1,6 @@
 require 'rails_helper'
+include EmailSpec::Helpers
+include EmailSpec::Matchers
 
 feature "user can add a review to an article", %q(
 

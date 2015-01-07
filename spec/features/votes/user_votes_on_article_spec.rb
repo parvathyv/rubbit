@@ -1,4 +1,6 @@
 require 'rails_helper'
+include EmailSpec::Helpers
+include EmailSpec::Matchers
 
 feature "User votes on an article", %q(
 
