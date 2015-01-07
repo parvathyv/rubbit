@@ -25,6 +25,7 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'pry-rails'
   gem 'email_spec'
+  gem 'mailcatcher'
 end
 
 group :test do

@@ -31,6 +31,7 @@ Acceptance criteria
     expect(ActionMailer::Base.deliveries.size).to eql(1)
     last_email = ActionMailer::Base.deliveries.last
     expect(last_email).to have_subject("New Vote")
+    expect(last_email).to have_body_text("Someone just voted on your article")
     expect(last_email).to deliver_to(email)
   end
 
