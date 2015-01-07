@@ -11,17 +11,17 @@ Acceptance criteria
 [x] A user can see the category on the article's page
 ) do
 
-  scenario "a user can add a category to an article", focus: true do
+  scenario "a user can add a category to an article" do
 
     user = FactoryGirl.create(:user)
+    article = FactoryGirl.create(:article)
 
     sign_in_as(user)
     visit new_article_path
 
-    fill_in 'Name', with: "Name for an article"
-    fill_in 'Url', with: "http://article.com"
-    fill_in 'Description', with: "Article description"
-    select 'Ruby', from: 'article_category_id'
+    fill_in 'Name', with: article.name
+    fill_in 'Url', with: article.url
+    fill_in 'Description', with: article.description
 
     click_on "Submit"
 
