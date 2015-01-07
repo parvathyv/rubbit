@@ -34,7 +34,16 @@
 	<h5>Total votes: <%= total_votes %></h5>
 </div>
 
+<%= form_tag articles_path, :method => 'get' do %>
+<p>
+	<%= text_field_tag :search, params[:search] %>
+	<%= submit_tag "Search", :name => nil %>
+</p>
+<% end %>
+
 <%= link_to "Add a Review", new_article_review_path(@article) %>
+
+<%= paginate @reviews %>
 
 <div class="reviews">
 	<% @reviews.each do |review| %>

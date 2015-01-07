@@ -18,12 +18,13 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.order(created_at: :desc).page(params[:page]).per(10)
+    @articles = Article.search(params[:search]).page(params[:page]).per(10)
   end
+
 
 	def show
 		@article = Article.find(params[:id])
-    @reviews = @article.reviews.order(created_at: :desc)
+    @reviews = @article.reviews.order(created_at: :desc).page(params[:page]).per(10)
 		@review = Review.new
 		@vote = Vote.new
 		@votes = @article.votes
