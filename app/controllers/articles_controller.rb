@@ -4,11 +4,13 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+		@categories = Category.all
   end
 
   def create
     @user = User.find(current_user.id)
     @article = @user.articles.build(article_params)
+
     if @article.save
       redirect_to article_path(@article), :notice => "Article successfully added"
     else
@@ -62,6 +64,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:name, :description, :url, :vote_count)
+    params.require(:article).permit(:name, :description, :url, :vote_count, :category_id)
   end
 end

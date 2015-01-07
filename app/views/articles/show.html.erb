@@ -2,6 +2,7 @@
 <li>Name: <%= @article.name %></li>
 <li>Description: <%= @article.description %></li>
 <li>Link: <%= @article.url %></li>
+<li>Category: <%= @article.category.topic %></li>
 </ul>
 
 	<% unless current_user.blank? %>
