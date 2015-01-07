@@ -15,6 +15,7 @@ FactoryGirl.define do
     description 'Lies and the lying liars who tell them.'
 
     user
+    category
   end
 
   factory :admin_user, parent: :user do
@@ -26,6 +27,10 @@ FactoryGirl.define do
 
     article
     user
+  end
+
+  factory :category do
+    topic 'Ruby'
   end
 
 end
