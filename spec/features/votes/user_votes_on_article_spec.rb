@@ -17,6 +17,8 @@ Acceptance criteria
   let!(:article) { FactoryGirl.create(:article, user: user) }
 
   scenario "A user upvotes an article" do
+    ActionMailer::Base.deliveries = []
+    email = "to@example.org"
 
     sign_in_as(user)
     visit article_path(article)
@@ -24,7 +26,10 @@ Acceptance criteria
     click_on 'Up'
 
     expect(page).to have_content("Your vote has been recorded")
-
+    expect(ActionMailer::Base.deliveries.size).to eql(1)
+    last_email = ActionMailer::Base.deliveries.last
+    expect(last_email).to have_subject("New Vote")
+    expect(last_email).to deliver_to(email)
   end
 
   scenario "A user downvotes an article" do

@@ -15,6 +15,8 @@ Acceptance criteria
   let!(:review) { FactoryGirl.create(:review)}
 
   scenario "a user can add a review to an article" do
+    ActionMailer::Base.deliveries = []
+    email = "to@example.org"
 
     sign_in_as(review.user)
     visit articles_path
@@ -28,6 +30,10 @@ Acceptance criteria
     expect(page).to have_content("Some other piece of writing here")
     expect(page).to have_content("Review successfully added")
 
+    expect(ActionMailer::Base.deliveries.size).to eql(1)
+    last_email = ActionMailer::Base.deliveries.last
+    expect(last_email).to have_subject("New Review")
+    expect(last_email).to deliver_to(email)
   end
 
   scenario "a user sees an error if they don't submit a full review" do
