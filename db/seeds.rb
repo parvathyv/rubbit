@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Category.create(topic: "Ruby")
+Category.create(topic: "Ruby on Rails")
+Category.create(topic: "Front-End")
+Category.create(topic: "Databases")
+Category.create(topic: "Other")

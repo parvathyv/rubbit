@@ -9,6 +9,7 @@ class ArticlesController < ApplicationController
   def create
     @user = User.find(current_user.id)
     @article = @user.articles.build(article_params)
+
     if @article.save
       redirect_to article_path(@article), :notice => "Article successfully added"
     else
@@ -17,13 +18,12 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.order(created_at: :desc).page(params[:page]).per(10)
+    @articles = Article.search(params[:search]).page(params[:page]).per(10)
   end
 
 	def show
 		@article = Article.find(params[:id])
-    @reviews = @article.reviews.order(created_at: :desc)
-		@review = Review.new
+		@reviews = @article.reviews.page(params[:page]).per(10)
 		@vote = Vote.new
 		@votes = @article.votes
 	end
@@ -62,6 +62,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:name, :description, :url, :vote_count)
+    params.require(:article).permit(:name, :description, :url, :vote_count, :category_id)
   end
 end

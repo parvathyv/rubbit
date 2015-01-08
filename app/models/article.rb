@@ -18,4 +18,13 @@ validates :url, uniqueness: true
 
 validates :description, presence: true
 validates :description, length: { maximum: 500 }
+
+def self.search(search)
+  if search
+    find(:all, :conditions => ["name ILIKE ?", "%#{search}%"])
+  else
+    all
+  end
+end
+
 end

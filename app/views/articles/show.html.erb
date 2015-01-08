@@ -2,6 +2,7 @@
 <li>Name: <%= @article.name %></li>
 <li>Description: <%= @article.description %></li>
 <li>Link: <%= @article.url %></li>
+<li>Category: <%= @article.category.topic %></li>
 </ul>
 
 	<% unless current_user.blank? %>
@@ -10,7 +11,9 @@
 		<%end%>
 	<%end%>
 
-<%= image_tag(current_user.profile_photo) %>
+<% unless current_user.blank? %>
+	<%= image_tag(current_user.profile_photo) %>
+<% end %>
 
 <% unless current_user.blank? %>
 	<%= form_for [@article, @vote] do |f| %>
@@ -34,6 +37,8 @@
 </div>
 
 <%= link_to "Add a Review", new_article_review_path(@article) %>
+
+<%= paginate @reviews %>
 
 <div class="reviews">
 	<% @reviews.each do |review| %>
