@@ -34,6 +34,7 @@ class ReviewsController < ApplicationController
     @review.user_id = @user.id
 
     if @review.save
+      UserMailer.review_notice(@article).deliver
       redirect_to article_path(@article), :notice => "Review successfully added"
     else
       redirect_to article_path(@article), :notice => "Review did fail"

@@ -24,6 +24,7 @@ group :development, :test do
   gem 'valid_attribute'
   gem 'shoulda-matchers', require: false
   gem 'pry-rails'
+  gem 'email_spec'
 end
 
 group :test do

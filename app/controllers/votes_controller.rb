@@ -9,6 +9,7 @@ class VotesController < ApplicationController
     @vote = Vote.new(vote_params)
 
     if @vote.save
+      UserMailer.vote_notice(@article).deliver
       redirect_to article_path(@article), :notice => "Your vote has been recorded"
     else
       flash[:notice] = "You have already voted"
