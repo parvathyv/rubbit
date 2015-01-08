@@ -15,6 +15,7 @@ gem 'devise'
 gem 'foundation-rails'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'fog'
 
 group :development, :test do
   gem 'rspec-rails'
