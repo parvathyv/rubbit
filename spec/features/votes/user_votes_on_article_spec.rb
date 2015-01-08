@@ -2,16 +2,16 @@ require 'rails_helper'
 include EmailSpec::Helpers
 include EmailSpec::Matchers
 
-feature "User votes on an article", %q(
+feature "User votes on an article", %(
 
-As a user
-I want to be able to upvote/downvote an article
-So that I can help other users find useful/less useful articles
+  As a user
+  I want to be able to upvote/downvote an article
+  So that I can help other users find useful/less useful articles
 
-Acceptance criteria
-[x] A user can upvote an article on the article's page and have the vote recorded.
-[x] A user can downvote an article on the article's page and have the vote recorded.
-[x] A user can only vote once on an article.
+  Acceptance criteria
+  [x] A user can upvote an article on the article's page and have the vote recorded.
+  [x] A user can downvote an article on the article's page and have the vote recorded.
+  [x] A user can only vote once on an article.
 ) do
 
 
@@ -20,7 +20,6 @@ Acceptance criteria
 
   scenario "A user upvotes an article" do
     ActionMailer::Base.deliveries = []
-    email = "to@example.org"
 
     sign_in_as(user)
     visit article_path(article)
@@ -32,7 +31,7 @@ Acceptance criteria
     last_email = ActionMailer::Base.deliveries.last
     expect(last_email).to have_subject("New Vote")
     expect(last_email).to have_body_text("Someone just voted on your article")
-    expect(last_email).to deliver_to(email)
+    expect(last_email).to deliver_to(article.user.email)
   end
 
   scenario "A user downvotes an article" do

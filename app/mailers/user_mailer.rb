@@ -3,19 +3,15 @@ class UserMailer < ApplicationMailer
 
   def review_notice(article)
     @user = article.user
-    @email = article.user.email
-    @url = "http://rubbit.#{article}"
+    @url = article_url(article)
 
-    mail to: "to@example.org",
-    subject: "New Review"
+    mail to: article.user.email, subject: "New Review"
   end
 
   def vote_notice(article)
     @user = article.user
-    @email = article.user.email
-    @url = "http://rubbit.#{article}"
+    @url = article_url(article)
 
-    mail to: "to@example.org",
-    subject: "New Vote"
+    mail to: article.user.email, subject: "New Vote"
   end
 end

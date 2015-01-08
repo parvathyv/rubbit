@@ -12,20 +12,19 @@ Acceptance criteria
 [x] A user can post a review on an article.
 [x] A user can see their article posted.
 [x] User reviews should be posted with most recent first
+[] An email is sent to the creator of the article after a review is posted.
 ) do
 
-  let!(:review) { FactoryGirl.create(:review)}
+  let(:review) { FactoryGirl.create(:review) }
+  let(:article) { FactoryGirl.create(:article) }
+  let(:user) { FactoryGirl.create(:user) }
 
   scenario "a user can add a review to an article" do
     ActionMailer::Base.deliveries = []
-    email = "to@example.org"
+    sign_in_as(user)
+    visit article_path(article)
 
-    sign_in_as(review.user)
-    visit articles_path
-
-    click_on review.article.name
     click_on "Add a Review"
-
     fill_in "Body", with: "Some other piece of writing here"
     click_on "Add Review"
 
@@ -36,17 +35,14 @@ Acceptance criteria
     last_email = ActionMailer::Base.deliveries.last
     expect(last_email).to have_subject("New Review")
     expect(last_email).to have_body_text("Someone left a review on your article")
-    expect(last_email).to deliver_to(email)
+    expect(last_email).to deliver_to(article.user.email)
   end
 
   scenario "a user sees an error if they don't submit a full review" do
-    sign_in_as(review.user)
+    sign_in_as(user)
 
-    visit articles_path
-
-    click_on review.article.name
+    visit article_path(article)
     click_on "Add a Review"
-
     click_on "Add Review"
 
     expect(page).to have_content("Review did fail")
@@ -55,9 +51,7 @@ Acceptance criteria
   scenario "a user can edit a review" do
 
     sign_in_as(review.user)
-    visit articles_path
-
-    click_on review.article.name
+    visit article_path(review.article)
 
     click_on "Edit Review"
 
@@ -71,9 +65,8 @@ Acceptance criteria
   scenario "a user can delete their review" do
 
     sign_in_as(review.user)
-    visit articles_path
+    visit article_path(review.article)
 
-    click_on review.article.name
     click_on "Edit Review"
 
     click_on "Delete"
