@@ -21,7 +21,7 @@ validates :description, length: { maximum: 500 }
 
 def self.search(search)
   if search
-    where("name like ?", "%#{search}%")
+    find(:all, :conditions => ["name ILIKE ?", "%#{search}%"])
   else
     all
   end

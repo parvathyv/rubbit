@@ -5,7 +5,7 @@ class VotesController < ApplicationController
   def create
     @article = Article.find(params[:article_id])
     @user = current_user.id
-    @reviews = @article.reviews
+    @reviews = @article.reviews.page(params[:page]).per(10)
     @vote = Vote.new(vote_params)
 
     if @vote.save

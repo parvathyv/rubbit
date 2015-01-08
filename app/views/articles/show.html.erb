@@ -11,7 +11,9 @@
 		<%end%>
 	<%end%>
 
+<% unless current_user.blank? %>
 <%= image_tag(current_user.profile_photo) %>
+<% end %>
 
 <% unless current_user.blank? %>
 	<%= form_for [@article, @vote] do |f| %>
@@ -33,13 +35,6 @@
 	<% total_votes = @article.votes.sum(:vote_tally) %>
 	<h5>Total votes: <%= total_votes %></h5>
 </div>
-
-<%= form_tag articles_path, :method => 'get' do %>
-<p>
-	<%= text_field_tag :search, params[:search] %>
-	<%= submit_tag "Search", :name => nil %>
-</p>
-<% end %>
 
 <%= link_to "Add a Review", new_article_review_path(@article) %>
 

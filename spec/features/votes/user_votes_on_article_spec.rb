@@ -35,7 +35,6 @@ Acceptance criteria
     click_on 'Down'
 
     expect(page).to have_content("Your vote has been recorded")
-
   end
 
   scenario "A user can only vote once" do
