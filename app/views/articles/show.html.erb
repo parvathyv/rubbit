@@ -1,10 +1,44 @@
-<ul>
-<li>Name: <%= @article.name %></li>
+<!-- <ul>
+<li>Name: </li>
 <li>Description: <%= @article.description %></li>
 <li>Link: <%= @article.url %></li>
 <li>Category: <%= @article.category.topic %></li>
 <li>Article votes: <%= @article.votes.sum(:vote_tally) %></li>
-</ul>
+</ul> -->
+
+  		<div class="large-6 columns" id="cell">
+  			<div class="small-2 columns" id="upvotes">
+  				<img id="user-pic" src="/imgs/av_sm_rnd.png">
+  				<div id="username"><%= @article.user.name %></div>
+  				<br>
+  			</div>
+  			<div id="article-box">
+				
+				
+  				<h3 id="titleh3"><b id="article-title"><%= @article.name %></b></h3>
+  				<h5 id="description"><%= @article.description %></h5>
+  				<!-- <img id="placeholder-img" src="/imgs/placeholder.png"> -->
+  				<div class="small-2 columns" id="upvotes">
+  					<a href="#artcile#upvote"><img id="upv-img" src="/imgs/upvote.png"></a>
+  					<a href="#artcile#downvote"><img id="dnv-img" src="/imgs/downvote.png"></a>
+  				  	<b id="upvotes-button"><%= @article.votes.sum(:vote_tally) %></b>
+  				</div>
+				
+  				<div class="small-2 columns" id="upvotes">
+  					<a href="#artcile#replies"><img id="repls-img" src="/imgs/replies.png"></a>
+  				  <a href="#artcile#replies"><b id="replies-button">28 replies</b></a>
+				  
+				  <img id="vline-img" src="/imgs/vline.png">
+  				</div>
+				
+			
+  				
+  				<a id="category" href="#search#category"><span class="radius secondary label"><b><%= @article.category.topic %></b></span></a>
+		
+		
+  		  	  	<hr id="move-down-sir"></hr>
+  			</div>
+  		</div>
 
 	<% unless current_user.blank? %>
 		<% if current_user.id == @article.user_id%>
