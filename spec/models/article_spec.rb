@@ -23,10 +23,10 @@ describe Article do
     text = ""
       501.times do
     text << "a"
-    end
+      end
 
     it { should have_valid(:description).when("a description", "something here") }
     it { should_not have_valid(:description).when("#{text}") }
   end
-  
+
 end

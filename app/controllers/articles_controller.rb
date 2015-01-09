@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
     @article = @user.articles.build(article_params)
 
     if @article.save
-      redirect_to article_path(@article), :notice => "Article successfully added"
+      redirect_to article_path(@article), notice: "Article successfully added"
     else
       render :new
     end
@@ -35,10 +35,10 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     if current_user.id != @article.user_id
-      redirect_to @article, :notice => "Invalid user"
+      redirect_to @article, notice: "Invalid user"
     else
       if @article.update_attributes(article_params)
-        redirect_to edit_article_path, :notice => "Article successfully edited"
+        redirect_to edit_article_path, notice: "Article successfully edited"
       else
         render :edit
       end
@@ -48,11 +48,11 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     if current_user.id != @article.user_id
-      redirect_to @article, :notice => "Invalid user"
+      redirect_to @article, notice: "Invalid user"
     else
       @article = Article.find(params[:id]).destroy
       if @article.destroy
-        redirect_to articles_path, :notice => "Article successfully deleted"
+        redirect_to articles_path, notice: "Article successfully deleted"
       else
         render :edit
       end
