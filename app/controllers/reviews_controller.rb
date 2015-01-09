@@ -19,9 +19,9 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
 
     if @review.update(review_params)
-      redirect_to article_path(@article), :notice => "Review successfully edited"
+      redirect_to article_path(@article), notice: "Review successfully edited"
     else
-      redirect_to article_path(@article), :notice => "Review did fail"
+      redirect_to article_path(@article), notice: "Review did fail"
     end
   end
 
@@ -35,10 +35,9 @@ class ReviewsController < ApplicationController
 
     if @review.save
       UserMailer.review_notice(@article).deliver
-      redirect_to article_path(@article), :notice => "Review successfully added"
+      redirect_to article_path(@article), notice: "Review successfully added"
     else
-      redirect_to article_path(@article), :notice => "Review did fail"
-
+      render :new, notice: "Review did fail"
     end
   end
 

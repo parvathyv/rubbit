@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :update]
 
   def create
     @article = Article.find(params[:article_id])
@@ -10,7 +10,7 @@ class VotesController < ApplicationController
 
     if @vote.save
       UserMailer.vote_notice(@article).deliver
-      redirect_to article_path(@article), :notice => "Your vote has been recorded"
+      redirect_to article_path(@article), notice: "Your vote has been recorded"
     else
       flash[:notice] = "You have already voted"
       render "articles/show"

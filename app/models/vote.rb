@@ -1,7 +1,6 @@
 class Vote < ActiveRecord::Base
-
   belongs_to :article
   belongs_to :user
 
-validates :user, uniqueness: {scope: :article}
+  validates_uniqueness_of :user, scope: [:article, :vote_tally]
 end
