@@ -19,10 +19,10 @@
 <% unless current_user.blank? %>
 
 	<%= form_for [@article, @vote] do |f| %>
-	<%= f.hidden_field "article_id", :value => @article.id %>
-	<%= f.hidden_field "user_id", :value => current_user.id %>
-	<%= f.hidden_field "vote_tally", :value => 1 %>
-	<%= submit_tag "Up", :class => 'up-vote' %>
+		<%= f.hidden_field "article_id", :value => @article.id %>
+		<%= f.hidden_field "user_id", :value => current_user.id %>
+		<%= f.hidden_field "vote_tally", :value => 1 %>
+		<%= submit_tag "Up", :class => 'up-vote' %>
 	<% end %>
 
 	<%= form_for [@article, @vote] do |f| %>
