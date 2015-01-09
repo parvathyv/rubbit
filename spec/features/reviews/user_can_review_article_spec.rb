@@ -45,7 +45,7 @@ Acceptance criteria
     click_on "Add a Review"
     click_on "Add Review"
 
-    expect(page).to have_content("Review did fail")
+    expect(page).to have_content("Body is too short (minimum is 25 characters)")
   end
 
   scenario "a user can edit a review" do

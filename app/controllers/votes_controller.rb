@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :update]
 
   def create
     @article = Article.find(params[:article_id])

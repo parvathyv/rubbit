@@ -23,9 +23,9 @@ class ArticlesController < ApplicationController
 
 	def show
 		@article = Article.find(params[:id])
-		@reviews = @article.reviews.page(params[:page]).per(10)
 		@vote = Vote.new
 		@votes = @article.votes
+		@reviews = @article.reviews.page(params[:page]).per(10)
 	end
 
   def edit

@@ -37,7 +37,7 @@ class ReviewsController < ApplicationController
       UserMailer.review_notice(@article).deliver
       redirect_to article_path(@article), :notice => "Review successfully added"
     else
-      redirect_to article_path(@article), :notice => "Review did fail"
+      render :new, :notice => "Review did fail"
 
     end
   end
