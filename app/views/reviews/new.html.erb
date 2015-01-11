@@ -1,25 +1,35 @@
-<h1>Add a Review</h1>
 
-  <% if @review.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= "#{@review.errors.count} error prevented the article from being saved" %></h2>
-      <ul>
-        <% @review.errors.full_messages.each do |review| %>
-        <li><%= review %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-<%= form_for ([@article, @review]) do |f| %>
+<div id='new-container'>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  
+	<h1>Add a Review</h1>
 
-<div class="field">
-  <%= f.label :body %>
-  <%= f.text_field :body %>
+	  <% if @review.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= "#{@review.errors.count} error prevented the article from being saved" %></h2>
+	      <ul>
+	        <% @review.errors.full_messages.each do |review| %>
+	        <li><%= review %></li>
+	        <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	  
+	  <%= form_for ([@article, @review]) do |f| %>
+
+	  <div class="field">
+	    <%= f.label :body %>
+	    <%= f.text_field :body %>
+	  </div>
+
+	  <div class="actions">
+	    <%= f.submit "Add Review", class: 'button round' %>
+	  </div>
+
+	  <% end %>
+	  
 </div>
 
-<div class="actions">
-  <%= f.submit "Add Review" %>
-</div>
 
-<% end %>

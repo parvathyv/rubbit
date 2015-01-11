@@ -1,23 +1,9 @@
-<!-- <h1>Articles</h1>
-
-<% unless current_user.blank? %>
-  <% if current_user %>
-    <%= image_tag(current_user.profile_photo) %>
-    <% end %>
-<% end %>
-
-
-
-  <ul>
-
- </ul>
-      <h4><%= link_to "Add new article", new_article_path %></h4>
- -->
-
 
 	<div class="row">
 	  <div class="medium-9 columns" id="articles-row">
+		  <% @articles.reverse %>
   		<% @articles.each do |article| %>
+		<% reviews = article.reviews %>
   		<div class="large-6 columns" id="cell">
   			<div class="small-2 columns" id="upvotes">
   				<img id="user-pic" src="/imgs/av_sm_rnd.png">
@@ -38,14 +24,13 @@
 				
   				<div class="small-2 columns" id="upvotes">
   					<a href="#artcile#replies"><img id="repls-img" src="/imgs/replies.png"></a>
-  				  <a href="#artcile#replies"><b id="replies-button">28 replies</b></a>
+  				  <a href="#artcile#replies"><b id="replies-button"><%= reviews.length %> reviews</b></a>
 				  
 				  <img id="vline-img" src="/imgs/vline.png">
   				</div>
 				
-			
   				
-  				<a id="category" href="#search#category"><span class="radius secondary label"><b>#Rails</b></span></a>
+  				<a id="category" href="#search#category"><span class="radius secondary label"><b>#<%= article.category.topic %></b></span></a>
 		
 		
   		  	  	<hr id="move-down-sir"></hr>
@@ -65,10 +50,10 @@
   		  			<hr>
   		  		</div>
   		  		<ul class="side-nav">
-  		  		  <li><a href="#"><span id="tags-s" class="label">#RubyOnRails 10 (3)</span></a></li>
-  		  		  <li><a href="#"><span id="tags-s" class="label">#HTML&CSS (3)</span></a></li>
-  		  		  <li><a href="#"><span id="tags-s" class="label">#BlahBlahBlah (3)</span></a></li>
-  		  		  <li><a href="#"><span id="tags-s" class="label">#RailsOnRuby (3)</span></a></li>
+					<% cats = Category.all %>
+					<% cats.each do |cat| %>
+						<li><a href="#"><span id="tags-s" class="label">#<%= cat.topic %></span></a></li>
+					<% end %>
   		  		</ul>
   		  <!-- ---------------------------- End Side Bar --------------------------------- -->
   		  		<hr>
