@@ -10,6 +10,7 @@
 				
 				
   				<h3 id="titleh3"><b id="article-title"><%= @article.name %></b></h3>
+				<h3 id="titleh3"><b id="article-title"><%= link_to @article.name, @article.url %></b></h3>
   				<h5 id="description"><%= @article.description %></h5>
 					
 				<% unless current_user.blank? %>
