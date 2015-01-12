@@ -17,10 +17,6 @@ feature 'user registers', %Q{
 
     attach_file "user[profile_photo]", "spec/data/bubbles.jpg"
 
-
-
-    #user_profile_photo
-
     fill_in 'Email', with: 'john@example.com'
     fill_in 'Name', with: 'Coolguy123'
     fill_in 'Password', with: 'password'
@@ -30,7 +26,6 @@ feature 'user registers', %Q{
 
     expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('Sign Out')
-    expect(page).to have_selector("img[alt=\"Something\"]")
   end
 
   scenario 'provide invalid registration information' do
@@ -40,6 +35,5 @@ feature 'user registers', %Q{
     expect(page).to have_content("can't be blank")
     expect(page).to_not have_content('Sign Out')
   end
-
 
 end

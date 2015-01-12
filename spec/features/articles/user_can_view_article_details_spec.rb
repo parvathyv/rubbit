@@ -20,7 +20,7 @@ feature "user can view an article name, description, and URL", %q(
     click_on article.name
 
     expect(page).to have_content(article.name)
-    expect(page).to have_content(article.url)
+    find_link(article.name).visible?
     expect(page).to have_content(article.description)
   end
 end

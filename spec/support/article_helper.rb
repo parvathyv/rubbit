@@ -2,9 +2,9 @@ module ArticleHelper
   def add_new_article(article)
     visit new_article_path
 
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
+    fill_in "article_name", with: article.name
+    fill_in "article_url", with: article.url
+    fill_in "article_description", with: article.description
     click_button 'Submit'
   end
 
@@ -12,9 +12,9 @@ module ArticleHelper
     visit article_path(articleid)
     click_button 'Edit'
 
-    fill_in 'Name', with: 'New article on Devise'
-    fill_in 'Url', with: 'http://stackoverflow.com'
-    fill_in 'Description', with: 'This article gives you information about devise,a user management system'
+    fill_in 'article_name', with: 'New article on Devise'
+    fill_in 'article_url', with: 'http://stackoverflow.com'
+    fill_in 'article_description', with: 'This article gives you information about devise,a user management system'
 
     click_button 'Submit'
 

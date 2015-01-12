@@ -19,9 +19,9 @@ Acceptance criteria
     sign_in_as(user)
     visit new_article_path
 
-    fill_in 'Name', with: article.name
-    fill_in 'Url', with: article.url
-    fill_in 'Description', with: article.description
+    fill_in 'article_name', with: article.name
+    fill_in 'article_url', with: article.url
+    fill_in 'article_description', with: article.description
 
     click_on "Submit"
 

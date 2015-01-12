@@ -1,5 +1,5 @@
   		<p>&nbsp;</p>
-		
+
 		<div class="large-6 columns" id="cell">
   			<div class="small-2 columns" id="upvotes">
   				<img id="user-pic" src="/imgs/av_sm_rnd.png">
@@ -7,11 +7,11 @@
   				<br>
   			</div>
   			<div id="article-box">
-				
-				
+
+
 				<h3 id="titleh3"><b id="article-title"><%= link_to @article.name, @article.url %></b></h3>
   				<h5 id="description"><%= @article.description %></h5>
-					
+
 				<% unless current_user.blank? %>
 
 	  				<div class="small-2 columns" id="upvotes">
@@ -19,37 +19,37 @@
 							<%= f.hidden_field "article_id", :value => @article.id %>
 							<%= f.hidden_field "user_id", :value => current_user.id %>
 							<%= f.hidden_field "vote_tally", :value => 1 %>
-							<%= image_submit_tag("/imgs/upvote.png", :class => 'up-vote', :id => "upv-img") %>		
+							<%= image_submit_tag("/imgs/upvote.png", :class => 'up-vote', :id => "upv-img") %>
 						<% end %>
-						
-						
+
+
 	  				</div>
 					<div class="small-2 columns" id="upvotes">
 						<%= form_for [@article, @vote] do |f| %>
 							<%= f.hidden_field "article_id", :value => @article.id %>
 							<%= f.hidden_field "user_id", :value => current_user.id %>
 							<%= f.hidden_field "vote_tally", :value => -1 %>
-							<%= image_submit_tag("/imgs/downvote.png", :class => 'down-vote', :id => "dnv-img") %>	
+							<%= image_submit_tag("/imgs/downvote.png", :class => 'down-vote', :id => "dnv-img") %>
 						<% end %>
 					</div>
-					
+
 				<% end %>
-				
-  								
+
+
   				<div class="small-2 columns" id="upvotes">
 					<b id="upvotes-button"><%= @article.votes.sum(:vote_tally) %></b>
   					<a href="#artcile#replies"><img id="repls-img" src="/imgs/replies.png"></a>
 					<% reviews = @article.reviews %>
   				  <a href="#artcile#replies"><b id="replies-button"><%= reviews.length %> reviews</b></a>
-				  
+
 				  <img id="vline-img" src="/imgs/vline.png">
   				</div>
-				
-			
-  				
+
+
+
   				<a id="category" href="#search#category"><span class="radius secondary label"><b><%= @article.category.topic %></b></span></a>
-		
-		
+
+
   		  	  	<hr id="move-down-sir"></hr>
   			</div>
   		</div>
@@ -77,10 +77,10 @@
   				<br>
   			</div>
   			<div id="article-box">
-				
-				
+
+
   				<h5 id="description"><%= review.body %></h5>
-  				
+
 				<% unless current_user.blank? %>
 					<% if current_user.id == review.user_id || current_user.role == 'admin' %>
 					 <p>&nbsp;</p>
@@ -90,7 +90,7 @@
   		  	  	<hr id="move-down-sir"></hr>
   			</div>
   		</div>
-		
+
 	<% end %>
 </div>
 

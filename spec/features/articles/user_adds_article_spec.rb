@@ -46,9 +46,9 @@ feature 'user adds an article', %Q{
     sign_in_as(user)
 
     visit new_article_path
-    fill_in 'Name', with: 'Bl'
-    fill_in 'Url', with: 'awesome article, dude'
-    fill_in 'Description', with: text
+    fill_in 'article_name', with: 'Bl'
+    fill_in 'article_url', with: 'awesome article, dude'
+    fill_in 'article_description', with: text
 
     click_button 'Submit'
 
@@ -61,7 +61,7 @@ feature 'user adds an article', %Q{
     sign_in_as(user)
 
     visit new_article_path
-    fill_in 'Name', with: 'Here is a title that is over 50 characters. Much too long dude! Do not be so long! You are annoying for everyone!'
+    fill_in 'article_name', with: 'Here is a title that is over 50 characters. Much too long dude! Do not be so long! You are annoying for everyone!'
 
     click_button 'Submit'
 
