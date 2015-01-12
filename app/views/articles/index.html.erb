@@ -1,26 +1,70 @@
-<h1>Articles</h1>
 
-<% unless current_user.blank? %>
-  <% if current_user %>
-    <%= image_tag(current_user.profile_photo) %>
-    <% end %>
-<% end %>
-
-
-<%= form_tag articles_path, :method => 'get' do %>
-<p>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag "Search", :name => nil %>
-</p>
-<% end %>
-
-
-<%= paginate @articles %>
-
-  <ul>
-    <% @articles.each do |article| %>
-      <li><%= link_to article.name, article_path(article) %></li>
-      <li>Article votes: <%= article.votes.sum(:vote_tally) %></li>
-   <% end %>
- </ul>
-      <h4><%= link_to "Add new article", new_article_path %></h4>
+	<div class="row">
+	  <div class="medium-9 columns" id="articles-row">
+		  <% @articles.reverse %>
+  		<% @articles.each do |article| %>
+		<% reviews = article.reviews %>
+  		<div class="large-6 columns" id="cell">
+  			<div class="small-2 columns" id="upvotes">
+  				<img id="user-pic" src="/imgs/av_sm_rnd.png">
+  				<div id="username"><%= article.user.name %></div>
+  				<br>
+  			</div>
+  			<div id="article-box">
+				
+				
+  				<h3 id="titleh3"><b id="article-title"><%= link_to article.name, article_path(article) %></b></h3>
+  				<h5 id="description"><%= article.description %></h5>
+  				<img id="placeholder-img" src="/imgs/placeholder.png">
+  				<div class="small-2 columns" id="upvotes">
+  					<a href="#artcile#upvote"><img id="upv-img" src="/imgs/upvote.png"></a>
+  					<a href="#artcile#downvote"><img id="dnv-img" src="/imgs/downvote.png"></a>
+  				  	<b id="upvotes-button"><%= article.votes.sum(:vote_tally) %></b>
+  				</div>
+				
+  				<div class="small-2 columns" id="upvotes">
+  					<a href="#artcile#replies"><img id="repls-img" src="/imgs/replies.png"></a>
+  				  <a href="#artcile#replies"><b id="replies-button"><%= reviews.length %> reviews</b></a>
+				  
+				  <img id="vline-img" src="/imgs/vline.png">
+  				</div>
+				
+  				
+  				<a id="category" href="#search#category"><span class="radius secondary label"><b>#<%= article.category.topic %></b></span></a>
+		
+		
+  		  	  	<hr id="move-down-sir"></hr>
+  			</div>
+  		</div>
+     	  	<% end %>
+	  </div>
+	  
+	  
+	  
+  	  <div class="fixed" id="fixed-sidebar">
+  		  	  <div class="medium-3 columns" id="side-bar-row">
+		  
+  		  <!-- ---------------------------- Side Bar --------------------------------- -->
+  		  		<div id="side-nav-title">
+  		  			<b>CATEGORIES</b>
+  		  			<hr>
+  		  		</div>
+  		  		<ul class="side-nav">
+					<% cats = Category.all %>
+					<% cats.each do |cat| %>
+						<li><a href="#"><span id="tags-s" class="label">#<%= cat.topic %></span></a></li>
+					<% end %>
+  		  		</ul>
+  		  <!-- ---------------------------- End Side Bar --------------------------------- -->
+  		  		<hr>
+  		  		<h6 id="copyright">rübbits • ©2014</h6>
+  		  	  </div>
+  	  </div>
+  	</div>
+	  
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	  
+	  
+	  <%= paginate @articles %>

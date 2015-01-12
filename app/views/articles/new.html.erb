@@ -1,3 +1,5 @@
+
+<div id="new-container">
 <%= form_for(@article) do |f| %>
 
   <% if @article.errors.any? %>
@@ -12,27 +14,28 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    Title:<br />
     <%= f.text_field :name %>
   </div>
 
 <div class="field">
-    <%= f.label :url %><br />
+    URL:<br />
     <%= f.text_field :url %>
   </div>
 
   <div class="field">
-    <%= f.label :description %><br />
+    Description:<br />
     <%= f.text_field :description %>
   </div>
 
   <div class="field">
-    <%= f.label :category %>
+    Category:
     <%= f.select( :category_id, Category.all.map {|c| [c.topic, c.id]}) %>
   </div>
 
   <div class="actions">
-  <%= f.submit "Submit" %>
+  <%= f.submit "Submit", :class => 'button round' %>
   </div>
 
-  <% end %>
+<% end %>	
+</div>
