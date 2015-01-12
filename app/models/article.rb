@@ -20,7 +20,7 @@ class Article < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where "name  ILIKE ?", "%#{search}%"
+      find(:all, :conditions => ["name ILIKE ?", "%#{search}%"])
     else
       all
     end
